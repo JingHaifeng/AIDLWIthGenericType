@@ -31,7 +31,7 @@ public class GenericService extends Service {
 
         @Override
         public GenericType getGenericType(String msg) throws RemoteException {
-            return new GenericType(Type1.class.getSimpleName(), Type1.class,mType1);
+            return new GenericType(Type1.class.getName(), Type1.class,mType1);
         }
     };
 }

@@ -19,8 +19,14 @@ public class GenericType <T extends Parcelable> implements Parcelable {
 
     public GenericType(Parcel in) {
         this.msg = in.readString();
-        this.classType = (Class) in.readValue(Class.class.getClassLoader());
-        this.value = (T) in.readValue(classType.getClassLoader());
+//        this.classType = (Class) in.readValue(Class.class.getClassLoader());
+        Class clazz = null;
+        try {
+            clazz = Class.forName(msg);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.value = (T) in.readValue(clazz.getClassLoader());
     }
 
     public String getMsg() {
@@ -43,7 +49,7 @@ public class GenericType <T extends Parcelable> implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(msg);
-        dest.writeValue(classType);
+//        dest.writeValue(classType);
         dest.writeValue(value);
     }
 
